@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "stream-pictures": {
+      "hosting": {
+        "stream-pictures": [
+          "stream-pictures"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "stream-pictures"
+  }
+}

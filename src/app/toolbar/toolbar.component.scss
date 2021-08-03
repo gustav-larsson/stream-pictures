@@ -1,0 +1,28 @@
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  @media only screen and (max-width: 600px) {
+    padding: 0;
+  }
+}
+.profile-img {
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.title-text {
+  text-align: center;
+  font-size: x-large;
+}
+.theme-btn {
+  justify-self: flex-end;
+}
+.display-name {
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+  align-self: center;
+}
+.user-container {
+  display: flex;
+}

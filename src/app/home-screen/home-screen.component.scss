@@ -1,0 +1,12 @@
+.home-screen-container {
+  display: flex;
+  flex-direction: column;
+}
+.home-screen-buttons {
+  height: 70px;
+  align-self: center;
+  width: fit-content;
+  font-size: 30px;
+  margin-top: 50px;
+  line-height: 30px; // DO NOT FORGET IT !
+}

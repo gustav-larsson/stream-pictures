@@ -1,0 +1,17 @@
+<mat-toolbar class="toolbar"  color="accent">
+  <div routerLink="/" class="user-container">
+    <button *ngIf="!hideBack" style="align-self: center;" mat-icon-button>
+      <mat-icon >home</mat-icon>
+    </button>
+    <img  class="profile-img" src="{{user.profile_image_url}}" alt="Cover Photo">
+    <span class="display-name">{{user.display_name}}</span>
+  </div>
+  <h1 class="title-text">{{title}}</h1>
+  <button mat-icon-button class="theme-btn" (click)="toggleTheme()">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Icon-button with heart icon">
+      dark_mode
+    </mat-icon>
+  </button>
+</mat-toolbar>

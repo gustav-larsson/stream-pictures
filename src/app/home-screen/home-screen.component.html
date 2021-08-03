@@ -1,0 +1,8 @@
+<div class="home-screen-container">
+  <button mat-raised-button color="primary" routerLink="/picture-list" class="home-screen-buttons">Picture List</button>
+  <button mat-raised-button color="primary" routerLink="/send-link" class="home-screen-buttons">Send Link</button>
+  <button mat-raised-button color="primary" routerLink="/picture-viewer" [queryParams]="{ user: user.login }" class="home-screen-buttons">Picture Viewer</button>
+  <button mat-raised-button color="primary" routerLink="/pricing" class="home-screen-buttons">Pricing</button>
+
+</div>
+

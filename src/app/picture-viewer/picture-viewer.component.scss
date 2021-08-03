@@ -1,0 +1,23 @@
+.suggested-picture {
+  width: 600px;
+}
+.profile-img {
+  height: 70px;
+  border-radius: 50%;
+}
+.profile-header {
+  display: flex;
+}
+.profile-text {
+  margin-left: 15px;
+}
+.profile-name {
+  align-self: center;
+  font-family: 'Roboto';
+  font-weight: bold;
+  margin: 0;
+}
+.picture-card {
+  width: fit-content;
+  margin: 10px;
+}

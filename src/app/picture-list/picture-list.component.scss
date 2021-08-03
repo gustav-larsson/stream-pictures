@@ -1,0 +1,40 @@
+.picture-card {
+  max-width: 300px;
+  height: fit-content;
+   .suggestion-img {
+     filter: blur(15px);
+     max-height: 200px;
+     object-fit: contain;
+    &:hover {
+      filter: none;
+    }
+   }
+   .action-button {
+    width: 50%;
+    margin: 0;
+  }
+  .suggestion-img:hover + .hover-text {
+    display: none;
+  }
+  .hover-text {
+    opacity: 70%;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+
+  }
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  row-gap: 15px;
+  column-gap: 15px;
+  padding: 50px;
+}
+

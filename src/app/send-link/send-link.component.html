@@ -1,0 +1,33 @@
+<app-toolbar></app-toolbar>
+
+<div class="send-link-container">
+  <mat-card class="send-link-card">
+
+    <mat-card-content>
+      <form [formGroup]="linkGroup" class="form">
+        <mat-form-field appearance="standard">
+          <mat-label>Streamer Tag</mat-label>
+          <input formControlName="streamer" id="streamer"  matInput>
+          <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Image Url to Share</mat-label>
+          <input formControlName="url" id="url"  matInput placeholder="image adress">
+          <mat-icon matSuffix>image</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Text to Accompany Image</mat-label>
+          <input formControlName="text" id="text"  matInput placeholder="note">
+          <mat-icon matSuffix>notes</mat-icon>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="action-button" color="accent" (click)="onPreview()" mat-button>Preview</button>
+      <button class="action-button" color="primary" (click)="onSend()" mat-button>Send</button>
+    </mat-card-actions>
+  </mat-card>
+  <div class="preview-viewer">
+    <app-picture-viewer *ngIf="preview" [picture]="preview"></app-picture-viewer>
+  </div>
+</div>

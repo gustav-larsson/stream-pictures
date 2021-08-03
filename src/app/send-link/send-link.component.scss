@@ -1,0 +1,35 @@
+.send-link-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @media only screen and (max-width: 1068px) {
+    grid-template-columns: 1fr;
+  }
+}
+.preview-card {
+  margin: 15px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.mat-card {
+  width: fit-content;
+  justify-self: center;
+  align-self: center;
+}
+.send-link-card {
+  justify-self: flex-end;
+  @media only screen and (max-width: 1068px) {
+    justify-self: center;
+  }
+  margin: 90px;
+}
+.preview-viewer {
+  justify-self: flex-start;
+  @media only screen and (max-width: 1068px) {
+    justify-self: center;
+  }
+  @media only screen and (max-width: 670px) {
+    zoom: 0.6;
+  }
+}

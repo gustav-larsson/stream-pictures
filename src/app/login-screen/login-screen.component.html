@@ -1,0 +1,17 @@
+<app-toolbar [hideBack]="true" *ngIf="user?.id"></app-toolbar>
+<div class="login-container" *ngIf="!user?.id">
+  <mat-card   class="login-card">
+    <mat-card-header style="display: flex; justify-content: center;">
+      <mat-card-title>Stream Pictures</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-actions  style="display: flex; justify-content: center;">
+      <twitch-login
+      (callback)="out($event)"
+      label="Login Twitch 🚀"
+      >
+      </twitch-login>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<app-home-screen *ngIf="user?.id"></app-home-screen>
