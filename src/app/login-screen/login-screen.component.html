@@ -1,4 +1,4 @@
-<app-toolbar [hideBack]="true" *ngIf="user?.id"></app-toolbar>
+<app-toolbar (toggle)="toggleDrawer($event)" [hideBack]="true" *ngIf="user?.id"></app-toolbar>
 <div class="login-container" *ngIf="!user?.id">
   <mat-card   class="login-card">
     <mat-card-header style="display: flex; justify-content: center;">
@@ -14,4 +14,4 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<app-home-screen *ngIf="user?.id"></app-home-screen>
+<app-home-screen [toggle]="toggle" *ngIf="user?.id"></app-home-screen>

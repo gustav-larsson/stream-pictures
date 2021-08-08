@@ -1,4 +1,4 @@
-import { Suggestion } from './suggestion';
+import { Suggestion } from './interfaces/suggestion';
 
 export const SUGGESTIONS: Suggestion[] = [
   { display_name: 'shalesa',

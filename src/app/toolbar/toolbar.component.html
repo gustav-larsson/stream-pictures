@@ -1,7 +1,8 @@
 <mat-toolbar class="toolbar"  color="accent">
-  <div routerLink="/" class="user-container">
-    <button *ngIf="!hideBack" style="align-self: center;" mat-icon-button>
-      <mat-icon >home</mat-icon>
+
+  <div class="user-container">
+    <button class="toggle-button" mat-icon-button type="button" (click)="toggleDrawer()" mat-button >
+      <mat-icon>menu</mat-icon>
     </button>
     <img  class="profile-img" src="{{user.profile_image_url}}" alt="Cover Photo">
     <span class="display-name">{{user.display_name}}</span>

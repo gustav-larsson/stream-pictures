@@ -1,0 +1,38 @@
+
+<div class="configurator-container">
+  <mat-card class="configurator-card">
+
+    <mat-card-content>
+      <form [formGroup]="linkGroup" class="form">
+        <mat-form-field appearance="standard">
+          <mat-label>Background Color</mat-label>
+          <input matInput [ngxMatColorPicker]="picker" placeholder="hex eg. #000000" formControlName="background" id="background">
+          <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+          <ngx-mat-color-picker #picker [color]="backgroundColor"></ngx-mat-color-picker>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Text Color</mat-label>
+          <input matInput [ngxMatColorPicker]="picker2" placeholder="hex eg. #FF00FF" formControlName="text" id="text">
+          <ngx-mat-color-toggle matSuffix [for]="picker2"></ngx-mat-color-toggle>
+          <ngx-mat-color-picker #picker2 [color]="textColor"></ngx-mat-color-picker>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Price to show Image</mat-label>
+          <input type="number" formControlName="pricing" id="pricing"  matInput placeholder="In dollars">
+          <mat-icon matSuffix>attach_money</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Time Image is Shown</mat-label>
+          <input type="number" formControlName="displayTime" id="displayTime"  matInput placeholder="In Seconds">
+          <mat-icon matSuffix>access_time</mat-icon>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="action-button" color="primary" (click)="onSave()" mat-button>Save</button>
+    </mat-card-actions>
+  </mat-card>
+  <div class="preview-viewer">
+    <app-picture-viewer *ngIf="preview" [picture]="preview"></app-picture-viewer>
+  </div>
+</div>

@@ -1,5 +1,4 @@
-
-<mat-card class="picture-card">
+<mat-card class="picture-card" [ngStyle]="{'background-color': picture?.backgroundColor?.rgba, 'color': picture?.color?.rgba}">
   <div class="">
     <div class="profile-header">
       <img class="profile-img" src="{{picture.profile_image_url}}" alt="Cover Photo">

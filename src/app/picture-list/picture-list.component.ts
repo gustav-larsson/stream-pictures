@@ -2,7 +2,9 @@ import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { Observable } from 'rxjs';
-import { Suggestion } from '../suggestion';
+import { Suggestion } from '../interfaces/suggestion';
+import { DataStorageService } from '../services/data-storage.service';
+import { DatabaseService } from '../services/database.service';
 
 
 
@@ -13,23 +15,26 @@ import { Suggestion } from '../suggestion';
 })
 
 export class PictureListComponent implements OnInit {
-  user = JSON.parse(this.storage.get('user'));
-  public suggestions = this.store.collection(this.user.login + '-collection').valueChanges({ idField: 'id'
+  user = this.storage.get('user');
+  public suggestions = this.store.getCollection().valueChanges({ idField: 'id'
 }) as Observable<Suggestion[]>;
 
-  constructor(private store: AngularFirestore,
-    @Inject(LOCAL_STORAGE) private storage: StorageService) {
+  constructor(private store: DatabaseService,
+    @Inject(LOCAL_STORAGE) private storage: DataStorageService) {
   }
 
   ngOnInit() {
   }
   onAccept(suggestion: Suggestion) {
     //this.suggestions.splice(index, 1);
-    this.store.collection(this.user.login + '-collection').doc(suggestion.id).delete();
-    this.store.collection(this.user.login).add(suggestion);
+    if (this.user) {
+      this.store.removeFromCollection(suggestion);
+      this.store.addSuggestionToUser(suggestion);
+
+    }
+
   }
   onDelete(suggestion: Suggestion) {
-    //this.suggestions.splice(index, 1);
-    this.store.collection(this.user.login + '-collection').doc(suggestion.id).delete();
+    this.store.removeFromCollection(suggestion);
   }
 }

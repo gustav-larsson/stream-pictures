@@ -1,5 +1,7 @@
+
 .suggested-picture {
-  width: 600px;
+  max-width: 600px;
+  max-height: 600px;
 }
 .profile-img {
   height: 70px;
@@ -20,4 +22,21 @@
 .picture-card {
   width: fit-content;
   margin: 10px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }

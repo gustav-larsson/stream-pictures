@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Suggestion } from '../suggestion';
+import { Suggestion } from '../interfaces/suggestion';
 
 @Component({
   selector: 'app-database-picture',
@@ -13,9 +13,14 @@ export class DatabasePictureComponent implements OnInit {
   sub: any;
   public user ='caiyth';
   public pictures: any;
-  constructor(private route: ActivatedRoute, private store: AngularFirestore, private _router: Router) { }
+  constructor(
+    private renderer: Renderer2,
+    private route: ActivatedRoute,
+    private store: AngularFirestore) { }
 
   ngOnInit(): void {
+
+    this.renderer.addClass(document.body, 'transparent-background');
     this.sub = this.route.queryParams.forEach(params => {
       this.user = params.user;
       this.pictures = this.store.collection(params.user).valueChanges({ idField: 'id'
@@ -29,11 +34,12 @@ export class DatabasePictureComponent implements OnInit {
         });
 
 
-      }, 15000);
+      }, 8000);
     })
   }
 
   ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'transparent-background');
   }
 }
 

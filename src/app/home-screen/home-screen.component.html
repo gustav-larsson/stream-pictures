@@ -1,8 +1,33 @@
-<div class="home-screen-container">
-  <button mat-raised-button color="primary" routerLink="/picture-list" class="home-screen-buttons">Picture List</button>
-  <button mat-raised-button color="primary" routerLink="/send-link" class="home-screen-buttons">Send Link</button>
-  <button mat-raised-button color="primary" routerLink="/picture-viewer" [queryParams]="{ user: user.login }" class="home-screen-buttons">Picture Viewer</button>
-  <button mat-raised-button color="primary" routerLink="/pricing" class="home-screen-buttons">Pricing</button>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer [opened]="toggle" #drawer class="example-sidenav" mode="side">
+    <div class="home-screen-container">
 
-</div>
+      <button mat-button [ngClass]="{ 'selected-app' : app === 'link' }" color="accent" (click)="show('link')" class="home-screen-buttons">Send Link <mat-icon class="home-screen-icon" aria-hidden="false" aria-label="image">image</mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider>
+
+      <button mat-button color="accent" [ngClass]="{ 'selected-app' : app === 'list' }" (click)="show('list')"  class="home-screen-buttons">Picture List <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="List">view_list</mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider>
+
+      <button mat-button [ngClass]="{ 'selected-app' : app === 'config' }" color="accent" (click)="show('config')"  class="home-screen-buttons">Configurator <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Settings">settings</mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider>
+
+      <button *ngIf="user?.login" mat-button color="accent" routerLink="/picture-viewer" [queryParams]="{ user: user.login }" class="home-screen-buttons">Picture Viewer <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Settings">photo_library</mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider>
+
+      <button mat-button color="accent" [ngClass]="{ 'selected-app' : app === 'guide' }" (click)="show('guide')" class="home-screen-buttons">Setup Guide <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Info">info</mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider>
+
+    </div>
+  </mat-drawer>
+<app-send-link *ngIf="app === 'link'"></app-send-link>
+<app-picture-list *ngIf="app === 'list'"></app-picture-list>
+<app-configurator *ngIf="app === 'config'"></app-configurator>
+<app-guide *ngIf="app === 'guide'"></app-guide>
+</mat-drawer-container>
+
 

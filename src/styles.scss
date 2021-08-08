@@ -2,3 +2,7 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.transparent-background {
+  background-color: rgba(0, 0, 0, 0)!important;
+  overflow: hidden;
+}

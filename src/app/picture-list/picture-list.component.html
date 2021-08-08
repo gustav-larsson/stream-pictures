@@ -1,5 +1,4 @@
 
-<app-toolbar></app-toolbar>
 <div class="card-grid">
   <mat-card *ngFor="let suggestion of suggestions | async; let i = index" class="picture-card">
     <mat-card-header>
@@ -8,7 +7,7 @@
       <mat-card-subtitle>{{suggestion.text}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <h2 class="hover-text">Hover to reveal</h2>
+      <h2 class="hover-text">Hover/Tap to Reveal</h2>
       <img class="suggestion-img" mat-card-image src="{{suggestion.url}}" alt="Random Picture">
     </mat-card-content>
     <mat-card-actions>

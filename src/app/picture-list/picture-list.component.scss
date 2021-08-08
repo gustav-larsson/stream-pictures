@@ -27,7 +27,7 @@
     width: 80%;
     padding: 20px;
     text-align: center;
-
+    pointer-events: none;
   }
 }
 .card-grid {
@@ -35,6 +35,6 @@
   grid-template-columns: repeat(auto-fill, 300px);
   row-gap: 15px;
   column-gap: 15px;
-  padding: 50px;
+  padding: 25px;
 }
 

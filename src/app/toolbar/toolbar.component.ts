@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { Observable } from 'rxjs';
 
@@ -14,6 +14,9 @@ export class ToolbarComponent implements OnInit {
   @Input()
   user: any;
   public title = 'Stream Pictures';
+
+  @Output() toggle = new EventEmitter<boolean>();
+  drawer = false;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -38,4 +41,8 @@ export class ToolbarComponent implements OnInit {
 
   }
 
+  toggleDrawer() {
+    this.drawer = !this.drawer;
+    this.toggle.emit(this.drawer)
+  }
 }

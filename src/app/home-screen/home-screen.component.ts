@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
   selector: 'app-home-screen',
@@ -8,9 +9,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HomeScreenComponent implements OnInit {
   @Input()
   public user: any;
-  constructor() { }
+  @Input()
+  public toggle: any;
+  public app: string = 'link';
+  constructor(private storage: DataStorageService) { }
 
   ngOnInit(): void {
+    this.user = this.storage.get('user');
   }
-
+  show(app: string) {
+    this.app = app;
+  }
 }

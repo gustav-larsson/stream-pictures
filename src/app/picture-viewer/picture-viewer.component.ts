@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-picture-viewer',
@@ -7,12 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PictureViewerComponent implements OnInit {
   @Input()
-  public picture: any = {
-    display_name: 'Shalesa',
-    profile_image_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/shalesa-profile_image-d5df5849e82c09a9-300x300.jpeg',
-    url: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    text: 'Someone wanted to show you something'
-  };
+  public picture: any;
   constructor() { }
 
   ngOnInit(): void {

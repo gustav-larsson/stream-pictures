@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { DataStorageService } from '../services/data-storage.service';
 
 
 @Component({
@@ -9,14 +10,11 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 })
 export class LoginScreenComponent implements OnInit {
   user: any;
-
-  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) { }
+  toggle = true;
+  constructor(private storage: DataStorageService) { }
 
   ngOnInit(): void {
-    const savedUser = this.storage.get('user');
-    if (savedUser) {
-      this.user = JSON.parse(savedUser);
-    }
+    this.user = this.storage.get('user');
   }
 
   onLogin() {
@@ -25,6 +23,10 @@ export class LoginScreenComponent implements OnInit {
   /** Callback Data **/
 	out($event: any): any   {
     this.user= $event;
-    this.storage.set('user', JSON.stringify(this.user));
+    this.storage.setUser(this.user);
+  }
+
+  toggleDrawer(event: any) {
+    this.toggle = !this.toggle;
   }
 }

@@ -1,4 +1,4 @@
-.send-link-container {
+.configurator-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   @media only screen and (max-width: 1068px) {
@@ -15,22 +15,18 @@
 .mat-card {
   width: fit-content;
   justify-self: center;
-  align-self: center;
 }
-.send-link-card {
+.configurator-card {
   justify-self: flex-end;
   @media only screen and (max-width: 1068px) {
     justify-self: center;
   }
   margin-top: 25px;
 }
-.action-button {
-  width: 50%;
-  margin: 0 !important;
-}
 .preview-viewer {
+  padding-top: 15px;
+  margin-bottom: -10px;
   justify-self: flex-start;
-  margin-top: 15px;
   @media only screen and (max-width: 1068px) {
     justify-self: center;
   }

@@ -14,12 +14,15 @@ import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { SendLinkComponent } from './send-link/send-link.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PricingComponent } from './pricing/pricing.component';
+import { ConfiguratorComponent } from './configurator/configurator.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireStorageModule } from '@angular/fire/storage'
 import { environment } from 'src/environments/environment';
 import { DatabasePictureComponent } from './database-picture/database-picture.component';
+import { GuideComponent } from './guide/guide.component';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,8 +33,9 @@ import { DatabasePictureComponent } from './database-picture/database-picture.co
     ToolbarComponent,
     HomeScreenComponent,
     SendLinkComponent,
-    PricingComponent,
-    DatabasePictureComponent
+    ConfiguratorComponent,
+    DatabasePictureComponent,
+    GuideComponent
   ],
   imports: [
     BrowserModule,
@@ -43,13 +47,16 @@ import { DatabasePictureComponent } from './database-picture/database-picture.co
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
+    NgxMatColorPickerModule,
+    HttpClientModule,
     TwitchLoginSdkModule.forRoot({
       twitchId:  "gfe65599d679im8wfulwz8zq9hyjlm", //<******* YOUR TWITCH_ID 👈
-      redirect: "http://localhost:4200/"
-      //redirect:  "https://stream-pictures.web.app/" //<***** YOUR CALLBACK REDIRECT 👈
+      //redirect: "http://localhost:4200/"
+      redirect:  "https://stream-pictures.web.app/" //<***** YOUR CALLBACK REDIRECT 👈
     })
   ],
   providers: [
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
   ],
   bootstrap: [AppComponent]
 })

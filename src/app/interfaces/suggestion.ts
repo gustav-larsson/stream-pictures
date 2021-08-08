@@ -3,5 +3,5 @@ export interface Suggestion {
   display_name: string;
   url: string;
   text?: string;
-  id?: string;
+  id: string;
 }
