@@ -22,7 +22,14 @@ import { environment } from 'src/environments/environment';
 import { DatabasePictureComponent } from './database-picture/database-picture.component';
 import { GuideComponent } from './guide/guide.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { PaypalAuthInterceptor } from './helpers/paypal.auth.interceptor';
+import { TabDirective } from './directives/tab.directive';
+import { PayPalModule } from './paypal.module';
+import { PaypalComponent } from './paypal-button/paypal.component';
+
+
 
 @NgModule({
   declarations: [
@@ -35,7 +42,9 @@ import { HttpClientModule } from '@angular/common/http';
     SendLinkComponent,
     ConfiguratorComponent,
     DatabasePictureComponent,
-    GuideComponent
+    GuideComponent,
+    TabDirective,
+    PaypalComponent
   ],
   imports: [
     BrowserModule,
@@ -51,12 +60,34 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     TwitchLoginSdkModule.forRoot({
       twitchId:  "gfe65599d679im8wfulwz8zq9hyjlm", //<******* YOUR TWITCH_ID 👈
-      //redirect: "http://localhost:4200/"
-      redirect:  "https://stream-pictures.web.app/" //<***** YOUR CALLBACK REDIRECT 👈
+      redirect: "http://localhost:4200/"
+      //redirect:  "https://stream-pictures.web.app/" //<***** YOUR CALLBACK REDIRECT 👈
+    }),
+    PayPalModule.init({
+      clientId: environment.clientId, // Using sandbox for testing purposes only
+      currency: 'USD',
+      integrationDate: '2021-07-01',
+      merchantId: environment.merchantId
+      //commit: true,
+      //vault: true,
+      //disableFunding: "card"
     })
   ],
   providers: [
-    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
+    {
+      provide: MAT_COLOR_FORMATS,
+      useValue: NGX_MAT_COLOR_FORMATS,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: PaypalAuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

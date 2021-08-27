@@ -1,6 +1,4 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Suggestion } from '../interfaces/suggestion';
 import { DataStorageService } from '../services/data-storage.service';
@@ -15,12 +13,13 @@ import { DatabaseService } from '../services/database.service';
 })
 
 export class PictureListComponent implements OnInit {
-  user = this.storage.get('user');
+  user = this.storage.getUser();
   public suggestions = this.store.getCollection().valueChanges({ idField: 'id'
 }) as Observable<Suggestion[]>;
 
-  constructor(private store: DatabaseService,
-    @Inject(LOCAL_STORAGE) private storage: DataStorageService) {
+  constructor(
+    private store: DatabaseService,
+    private storage: DataStorageService) {
   }
 
   ngOnInit() {

@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { Observable } from 'rxjs';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,10 +21,8 @@ export class ToolbarComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
-    @Inject(LOCAL_STORAGE) private storage: StorageService) {
-    if (this.storage.get('user')) {
-      this.user = JSON.parse(this.storage.get('user'));
-    }
+    private storage: DataStorageService) {
+    this.user = this.storage.getUser();
   }
 
   toggleTheme() {

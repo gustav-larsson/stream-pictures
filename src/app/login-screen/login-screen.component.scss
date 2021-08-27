@@ -1,3 +1,32 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+@mixin color($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+
+  // Get the primary color palette from the color-config.
+  $accent-palette: map.get($color-config, 'accent');
+    .title-color {
+      color: mat.get-color-from-palette($accent-palette);
+    }
+
+    // Read the 500 hue from the primary color palette.
+
+}
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+}
+.title-text {
+  font-size: xx-large;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  @media only screen and (max-width: 600px) {
+    font-size: x-large;
+  }
+}
 .login-container {
   display: flex;
   justify-content: center;

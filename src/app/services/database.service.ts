@@ -8,7 +8,7 @@ import { DataStorageService } from './data-storage.service';
   providedIn: 'root'
 })
 export class DatabaseService {
-  user: User | null = this.storage.get('user');
+  user: User | null = this.storage.getUser();
   constructor(private store: AngularFirestore, private storage: DataStorageService) {
 
   }
@@ -23,7 +23,24 @@ export class DatabaseService {
       this.store.collection(this.user.login).add(suggestion);
     }
   }
-  getCollection() {
+  getCollection () {
     return this.store.collection(this.user?.login + '-collection');
+  }
+
+  setConfig (data:any) {
+    this.store.collection('config').doc(this.user?.login).update(data);
+  }
+
+  getConfig() {
+    return this.store.collection('config').doc(this.user?.login).snapshotChanges();
+  }
+  getStreamers () {
+    return this.store.collection('config').snapshotChanges();
+  }
+  createOrder (data: any) {
+      return this.store.collection('orders').add(data);
+  }
+  approveOrder (id: string) {
+    return this.store.collection('orders').doc(id).snapshotChanges();
   }
 }

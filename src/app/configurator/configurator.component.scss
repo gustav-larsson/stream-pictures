@@ -1,5 +1,27 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+@mixin color($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+
+  // Get the primary color palette from the color-config.
+  $accent-palette: map.get($color-config, 'accent');
+  $primary-palette: map.get($color-config, 'primary');
+  $accent: map-get($accent-palette, 'accent');
+  .card-title {
+    // Read the 500 hue from the primary color palette.
+    color: mat.get-color-from-palette($accent-palette, text);
+  }
+}
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+}
 .configurator-container {
   display: grid;
+  padding: 25px;
   grid-template-columns: 1fr 1fr;
   @media only screen and (max-width: 1068px) {
     grid-template-columns: 1fr;
@@ -33,4 +55,20 @@
   @media only screen and (max-width: 670px) {
     zoom: 0.6;
   }
+}
+.signup-button {
+  height: 70px;
+  text-align: left;
+  width: 280px;
+  font-size: 30px;
+  line-height: 20px; // DO NOT FORGET IT !
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 800;
+}
+
+.signup-icon {
+  float: right;
+}
+.rotate {
+  transform: rotate(90deg);
 }

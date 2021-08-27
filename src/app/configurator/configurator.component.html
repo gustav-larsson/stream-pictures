@@ -3,6 +3,12 @@
   <mat-card class="configurator-card">
 
     <mat-card-content>
+      <mat-card-title *ngIf="!isMerchant" class="card-title mat-primary">
+
+      <button (click)="paypal()" mat-button color="accent" class="signup-button">Paypal Signup<mat-icon class="signup-icon"aria-hidden="false" aria-label="paypal">monetization_on</mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider>
+      </mat-card-title>
       <form [formGroup]="linkGroup" class="form">
         <mat-form-field appearance="standard">
           <mat-label>Background Color</mat-label>
@@ -17,11 +23,6 @@
           <ngx-mat-color-picker #picker2 [color]="textColor"></ngx-mat-color-picker>
         </mat-form-field>
         <mat-form-field appearance="standard">
-          <mat-label>Price to show Image</mat-label>
-          <input type="number" formControlName="pricing" id="pricing"  matInput placeholder="In dollars">
-          <mat-icon matSuffix>attach_money</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="standard">
           <mat-label>Time Image is Shown</mat-label>
           <input type="number" formControlName="displayTime" id="displayTime"  matInput placeholder="In Seconds">
           <mat-icon matSuffix>access_time</mat-icon>
@@ -29,10 +30,11 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button class="action-button" color="primary" (click)="onSave()" mat-button>Save</button>
+      <button class="action-button" [disabled]="!tier3Sub" color="primary" (click)="onSave()" mat-button>Save</button>
+      <button class="action-button" color="accent" (click)="onPreview()" mat-button>Preview</button>
     </mat-card-actions>
   </mat-card>
   <div class="preview-viewer">
-    <app-picture-viewer *ngIf="preview" [picture]="preview"></app-picture-viewer>
+    <app-picture-viewer *ngIf="preview && timerRunning" [suggestion]="preview"></app-picture-viewer>
   </div>
 </div>

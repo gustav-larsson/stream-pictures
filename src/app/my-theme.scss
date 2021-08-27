@@ -1,5 +1,8 @@
 @use '~@angular/material' as mat;
 @use './home-screen/home-screen.component.scss' as home-screen;
+@use './configurator/configurator.component.scss' as configurator;
+@use './login-screen/login-screen.component.scss' as login;
+
 @include mat.core();
 
 $my-primary: mat.define-palette(mat.$teal-palette, 500);
@@ -24,11 +27,15 @@ $my-light-theme: mat.define-light-theme((
 @include mat.core-theme($my-dark-theme);
 @include mat.all-component-themes($my-light-theme);
 @include home-screen.theme($my-light-theme);
+@include configurator.theme($my-light-theme);
+@include login.theme($my-light-theme);
 // Emit styles for MatButton based on `$my-theme`. Because the configuration
 // passed to `define-light-theme` omits typography, `button-theme` will not
 // emit any typography styles.
 .my-dark-theme {
   @include mat.all-component-themes($my-dark-theme);
   @include home-screen.theme($my-dark-theme);
+  @include configurator.theme($my-dark-theme);
+  @include login.theme($my-dark-theme);
 }
 // Include the theme mixins for other components you use here.

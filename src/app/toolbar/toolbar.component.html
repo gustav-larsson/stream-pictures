@@ -2,12 +2,16 @@
 
   <div class="user-container">
     <button class="toggle-button" mat-icon-button type="button" (click)="toggleDrawer()" mat-button >
-      <mat-icon>menu</mat-icon>
+      <mat-icon *ngIf="drawer">menu</mat-icon>
+      <mat-icon *ngIf="!drawer">arrow_back_ios_new</mat-icon>
     </button>
     <img  class="profile-img" src="{{user.profile_image_url}}" alt="Cover Photo">
     <span class="display-name">{{user.display_name}}</span>
   </div>
-  <h1 class="title-text">{{title}}</h1>
+  <div class="title-container">
+    <h1 class="title-text">{{title}}</h1>
+  </div>
+
   <button mat-icon-button class="theme-btn" (click)="toggleTheme()">
     <mat-icon
       aria-hidden="false"

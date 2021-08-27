@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../services/data-storage.service';
 
 
@@ -14,7 +13,7 @@ export class LoginScreenComponent implements OnInit {
   constructor(private storage: DataStorageService) { }
 
   ngOnInit(): void {
-    this.user = this.storage.get('user');
+    this.user = this.storage.getUser();
   }
 
   onLogin() {

@@ -1,0 +1,3 @@
+<wmPaypal *ngIf="showButton" [style.width.px]="width" [height]="height" [layout]="layout" [shape]="shape" [color]="color"
+[label]="label" [tagline]="false" [disabled]="false" [request]="order"
+(cancel)="onCancel($event)" (error)="onError($event)" #paypal enableStandardCardFields></wmPaypal>

@@ -3,24 +3,34 @@
   max-width: 600px;
   max-height: 600px;
 }
+
+
 .profile-img {
-  height: 70px;
+  height: 50px;
   border-radius: 50%;
+  margin-bottom: 15px;
 }
 .profile-header {
   display: flex;
 }
 .profile-text {
   margin-left: 15px;
+
 }
 .profile-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
   align-self: center;
-  font-family: 'Roboto';
-  font-weight: bold;
+  line-height: inherit;
   margin: 0;
 }
+.text {
+  font-family: 'Exo 2', sans-serif;
+  margin: 0;
+  line-height: inherit;
+  margin-bottom: 15px;
+}
 .picture-card {
-  width: fit-content;
   margin: 10px;
   animation-name: fadeIn;
   animation-duration: 1s;

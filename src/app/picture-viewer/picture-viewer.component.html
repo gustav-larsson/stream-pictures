@@ -1,14 +1,16 @@
-<mat-card class="picture-card" [ngStyle]="{'background-color': picture?.backgroundColor?.rgba, 'color': picture?.color?.rgba}">
+<mat-card class="picture-card" [ngStyle]="{'background-color': suggestion?.backgroundColor?.rgba, 'color': suggestion?.color?.rgba}">
   <div class="">
     <div class="profile-header">
-      <img class="profile-img" src="{{picture.profile_image_url}}" alt="Cover Photo">
+      <img class="profile-img" src="{{suggestion.profile_image_url}}" alt="Cover Photo">
       <div class="profile-text">
-        <h1 class="profile-name">{{picture.display_name}}</h1>
-        <h1 class="text">{{picture.text}}</h1>
+        <h1 class="profile-name">{{suggestion.display_name}}</h1>
+        <h2 class="text">{{suggestion.text}}</h2>
       </div>
 
     </div>
-    <img class="suggested-picture" src="{{picture.url}}" alt="Random Picture">
+    <img *ngIf="!showYoutube" id="suggestion" class="suggested-picture" src="{{suggestion.url}}" alt="Random Picture">
+    <div #one class="one"></div>
+    <!-- <iframe *ngIf="showYoutube" width="600" height="338" src="{{youtube}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
   </div>
 </mat-card>
 

@@ -7,8 +7,16 @@
       <form [formGroup]="linkGroup" class="form">
         <mat-form-field appearance="standard">
           <mat-label>Streamer Tag</mat-label>
-          <input formControlName="streamer" id="streamer"  matInput>
+          <input appTabDirective type="text" [matAutocomplete]="auto" formControlName="streamer" id="streamer"  matInput>
           <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-autocomplete autoActiveFirstOption [displayWith]="checkValue" #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option.value}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-hint *ngIf="linkGroup?.controls?.['streamer']?.errors?.networkError || linkGroup?.controls?.['streamer']?.errors?.notSubbed">
+            You are not subscribed
+          </mat-hint>
         </mat-form-field>
         <mat-form-field appearance="standard">
           <mat-label>Image Url to Share</mat-label>
@@ -23,11 +31,13 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button class="action-button" color="primary" (click)="onSend()" mat-button>Send</button>
-      <button class="action-button" color="accent" (click)="onPreview()" mat-button>Preview</button>
+      <button class="action-button" (click)="onSubmit()" color="primary" [disabled]="!linkGroup.valid" mat-button>Send</button>
+      <button class="action-button" color="accent" [disabled]="!linkGroup.valid" (click)="onPreview()" mat-button>Preview</button>
+      <app-paypal-button [merchantId]="merchantId"></app-paypal-button>
     </mat-card-actions>
   </mat-card>
   <div class="preview-viewer">
-    <app-picture-viewer *ngIf="preview" [picture]="preview"></app-picture-viewer>
+    <app-picture-viewer *ngIf="preview" [suggestion]="preview"></app-picture-viewer>
   </div>
 </div>
+

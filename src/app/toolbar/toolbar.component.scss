@@ -14,9 +14,20 @@
 .toggle-button {
   align-self: center;
 }
+.title-container {
+  display: flex;
+  justify-content: center;
+}
+
+
 .title-text {
   text-align: center;
-  font-size: x-large;
+  font-size: xx-large;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  @media only screen and (max-width: 600px) {
+    font-size: x-large;
+  }
 }
 .theme-btn {
   justify-self: flex-end;
@@ -26,6 +37,8 @@
     display: none;
   }
   align-self: center;
+  font-family: 'Inter';
+  font-weight: 400;
 }
 .user-container {
   display: flex;

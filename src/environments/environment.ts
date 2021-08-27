@@ -13,7 +13,15 @@ export const environment = {
     messagingSenderId: "20389288679",
     appId: "1:20389288679:web:b22e8c29ab2bf866742042",
     measurementId: "G-00NNN3RYCF"
-  }
+  },
+  twitchApiUrl: 'https://api.twitch.',
+  paypalApiUrl: 'https://api-m.sandbox.paypal.com',
+  partnerId: 'X8UMSSCB6G8P8',
+  clientId: 'AZLGR1O8QJEvPOjZJeOTdD83ITWr_y8CoeWrc-r28zffnFWM7idUG6hSoCHIH0Gm82Bqnlct-75JB03z',
+  secret: 'EC4aADwk9Y_IdmHjMZl4NsjgI3QpeEeDbt1JuES2x3TqXnO3I_zk8rjyG7_3DS1D0o3_Ew74gvFJM5Lg',
+  bnCode: 'FLAVORsb-4743adk7067203_MP',
+  // only used for testing
+  merchantId: 'ZL3FYWH2Q72LG'
 };
 
 /*

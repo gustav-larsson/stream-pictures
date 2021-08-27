@@ -9,5 +9,6 @@ export const environment = {
     messagingSenderId: "20389288679",
     appId: "1:20389288679:web:b22e8c29ab2bf866742042",
     measurementId: "G-00NNN3RYCF"
-  }
+  },
+  twitchApiUrl: 'https://api.twitch.'
 };

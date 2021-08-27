@@ -14,11 +14,15 @@
 
       <mat-divider class="button-divider"></mat-divider>
 
-      <button *ngIf="user?.login" mat-button color="accent" routerLink="/picture-viewer" [queryParams]="{ user: user.login }" class="home-screen-buttons">Picture Viewer <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Settings">photo_library</mat-icon></button>
+      <button mat-button color="accent" [ngClass]="{ 'selected-app' : app === 'guide' }" (click)="show('guide')" class="home-screen-buttons">Setup Guide <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Info">info</mat-icon></button>
 
       <mat-divider class="button-divider"></mat-divider>
 
-      <button mat-button color="accent" [ngClass]="{ 'selected-app' : app === 'guide' }" (click)="show('guide')" class="home-screen-buttons">Setup Guide <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Info">info</mat-icon></button>
+      <button *ngIf="user?.login" mat-button color="accent" routerLink="/picture-viewer" [queryParams]="{ user: user?.login }" class="home-screen-buttons">Picture Viewer <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Settings">photo_library</mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider>
+
+      <button *ngIf="user?.login" (click)="logout()" mat-button color="accent" class="home-screen-buttons">Logout<mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Logout">account_circle</mat-icon></button>
 
       <mat-divider class="button-divider"></mat-divider>
 

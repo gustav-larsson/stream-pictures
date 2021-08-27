@@ -4,4 +4,6 @@ export interface Suggestion {
   url: string;
   text?: string;
   id: string;
+  color: { rgba: string };
+  backgroundColor: { rgba: string };
 }

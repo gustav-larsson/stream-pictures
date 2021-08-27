@@ -7,7 +7,7 @@ import { DataStorageService } from '../services/data-storage.service';
   styleUrls: ['./guide.component.scss']
 })
 export class GuideComponent implements OnInit {
-  user = this.store.get('user');
+  user = this.store.getUser();
   constructor(private store: DataStorageService) { }
 
   ngOnInit(): void {
