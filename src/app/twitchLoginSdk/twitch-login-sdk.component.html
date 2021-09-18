@@ -1,0 +1,6 @@
+<button class="buttom-twitch-login"
+    [disabled]="loading"
+    [style.opacity]="(loading) ? '.6':'1'"
+    (click)="openLogin()" type="button">
+    {{this.label}}
+</button>

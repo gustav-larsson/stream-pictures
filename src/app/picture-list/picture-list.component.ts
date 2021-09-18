@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Suggestion } from '../interfaces/suggestion';
+import { User } from '../interfaces/user';
 import { DataStorageService } from '../services/data-storage.service';
 import { DatabaseService } from '../services/database.service';
 
@@ -13,9 +14,8 @@ import { DatabaseService } from '../services/database.service';
 })
 
 export class PictureListComponent implements OnInit {
-  user = this.storage.getUser();
-  public suggestions = this.store.getCollection().valueChanges({ idField: 'id'
-}) as Observable<Suggestion[]>;
+  user: User | null;
+  public suggestions: Observable<Suggestion[]>;
 
   constructor(
     private store: DatabaseService,
@@ -23,6 +23,9 @@ export class PictureListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.storage.getUser()
+    this.suggestions = this.store.getCollection().valueChanges({ idField: 'id'
+  }) as Observable<Suggestion[]>;
   }
   onAccept(suggestion: Suggestion) {
     //this.suggestions.splice(index, 1);

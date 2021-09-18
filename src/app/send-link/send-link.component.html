@@ -33,7 +33,7 @@
     <mat-card-actions>
       <button class="action-button" (click)="onSubmit()" color="primary" [disabled]="!linkGroup.valid" mat-button>Send</button>
       <button class="action-button" color="accent" [disabled]="!linkGroup.valid" (click)="onPreview()" mat-button>Preview</button>
-      <app-paypal-button [merchantId]="merchantId"></app-paypal-button>
+      <!-- <app-paypal-button [merchantId]="merchantId"></app-paypal-button> -->
     </mat-card-actions>
   </mat-card>
   <div class="preview-viewer">

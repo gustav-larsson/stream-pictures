@@ -25,11 +25,25 @@ export class PaypalComponent implements OnChanges {
   order: OrderRequest = {
     intent: 'CAPTURE',
     purchase_units: [{
-      custom_id: 'wallet10',
+      payee: {
+        merchant_id: "ZL3FYWH2Q72LG"
+      },
       amount: {
         currency_code: 'USD',
-        value: '5'
-      }
+        value: '5.00'
+      },
+      payment_instruction:{
+        disbursement_mode:"INSTANT",
+        platform_fees:[
+           {
+              amount:{
+                 currency_code:"USD",
+                 value:"1.50"
+              }
+           }
+        ]
+         }
+
     }]
   };
   ngOnChanges (changes: SimpleChanges) {

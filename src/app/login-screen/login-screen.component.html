@@ -6,12 +6,13 @@
     </mat-card-header>
     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
     <mat-card-actions  style="display: flex; justify-content: center;">
-      <twitch-login
+      <app-twitch-login
       (callback)="out($event)"
       scopes="user:read:email+openid+channel:read:subscriptions+user:read:subscriptions"
       label="Login Twitch 🚀"
       >
-      </twitch-login>
+      </app-twitch-login>
+      <button mat-button-primary (click)="onLogin()">twitch login</button>
     </mat-card-actions>
   </mat-card>
 </div>

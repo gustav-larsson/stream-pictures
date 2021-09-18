@@ -9,6 +9,4 @@ export interface User {
   offline_image_url: string,
   view_count: number,
   email: string,
-  created_at: string,
-  token: string
 }

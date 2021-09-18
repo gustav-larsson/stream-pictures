@@ -6,6 +6,7 @@ import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { PictureListComponent } from './picture-list/picture-list.component';
 import { ConfiguratorComponent } from './configurator/configurator.component';
 import { SendLinkComponent } from './send-link/send-link.component';
+import { LoginPopupComponent } from './login-popup/login-popup.component';
 
 const routes: Routes = [
   { path: '', component: LoginScreenComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'send-link', component: SendLinkComponent },
   { path: 'configurator', component: ConfiguratorComponent},
   { path: 'guide', component: GuideComponent},
+  { path: 'popup', component: LoginPopupComponent},
 
 
 ];

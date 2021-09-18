@@ -25,14 +25,7 @@ export class SendLinkComponent implements OnInit {
   streamer = new FormControl('');
   options = new Array<any>();
   filteredOptions: Observable<Streamer[]>;
-  linkGroup = new FormGroup({
-    streamer: new FormControl(
-      '',
-      [Validators.required, foundInArrayValidator(this.options)],
-      this.twitchValidator.isSubbed()),
-    url: new FormControl('', [Validators.required]),
-    text: new FormControl('')
-  })
+  linkGroup: FormGroup;
   sellerPaypalId: string;
   @ViewChild('paypalRef', {static: true}) private paypalRef: ElementRef;
 
@@ -40,13 +33,20 @@ export class SendLinkComponent implements OnInit {
     private storage: DataStorageService,
     private store: DatabaseService,
     private twitchValidator: TwitchValidators,
-    private paypalPaymentService: PaypalPaymentService,
-    private elementRef: ElementRef) {
+    private paypalPaymentService: PaypalPaymentService) {
     this.user = this.storage.getUser();
 
   }
 
   ngOnInit(): void {
+    this.linkGroup = new FormGroup({
+      streamer: new FormControl(
+        '',
+        [Validators.required, foundInArrayValidator(this.options)],
+        this.twitchValidator.isSubbed()),
+      url: new FormControl('', [Validators.required]),
+      text: new FormControl('')
+    });
     this.updateAutoComplete();
     this.formSub();
     this.store.getStreamers().subscribe((collection) => {

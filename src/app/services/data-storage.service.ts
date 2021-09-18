@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { JWT } from '../interfaces/JWT';
 import { User } from '../interfaces/user';
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,9 @@ export class DataStorageService {
   }
   setUser(user: any) {
     this.storage.set('user', JSON.stringify(user));
+  }
+  setJWT(jwt: any) {
+    this.storage.set('JWT', JSON.stringify(jwt));
   }
 
   get(name: string): any | null{
@@ -23,6 +27,16 @@ export class DataStorageService {
       return null;
     }
   }
+
+  getJWT(): JWT | null{
+    const data = this.storage.get('JWT');
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return null;
+    }
+  }
+
   setMerchant(merchant: any) {
     this.storage.set('merchant', JSON.stringify(merchant))
   }

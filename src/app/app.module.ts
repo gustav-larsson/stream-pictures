@@ -28,8 +28,10 @@ import { PaypalAuthInterceptor } from './helpers/paypal.auth.interceptor';
 import { TabDirective } from './directives/tab.directive';
 import { PayPalModule } from './paypal.module';
 import { PaypalComponent } from './paypal-button/paypal.component';
-
-
+import { TwitchLoginSdkComponent } from './twitchLoginSdk/twitch-login-sdk.component';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { LoginPopupComponent } from './login-popup/login-popup.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { PaypalComponent } from './paypal-button/paypal.component';
     DatabasePictureComponent,
     GuideComponent,
     TabDirective,
-    PaypalComponent
+    PaypalComponent,
+    TwitchLoginSdkComponent,
+    LoginPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -55,13 +59,15 @@ import { PaypalComponent } from './paypal-button/paypal.component';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireFunctionsModule,
+    AngularFireDatabaseModule,
     AngularFireStorageModule,
     NgxMatColorPickerModule,
     HttpClientModule,
     TwitchLoginSdkModule.forRoot({
       twitchId:  "gfe65599d679im8wfulwz8zq9hyjlm", //<******* YOUR TWITCH_ID 👈
-      redirect: "http://localhost:4200/"
-      //redirect:  "https://stream-pictures.web.app/" //<***** YOUR CALLBACK REDIRECT 👈
+      //redirect: "http://localhost:4200/"
+      redirect:  "https://stream-pictures.web.app/" //<***** YOUR CALLBACK REDIRECT 👈
     }),
     PayPalModule.init({
       clientId: environment.clientId, // Using sandbox for testing purposes only

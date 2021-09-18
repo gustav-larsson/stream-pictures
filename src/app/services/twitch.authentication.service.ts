@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { JWT } from '../interfaces/JWT';
 import { User } from '../interfaces/user';
 import { DataStorageService } from './data-storage.service';
 
@@ -8,35 +10,42 @@ import { DataStorageService } from './data-storage.service';
   providedIn: 'root'
 })
 export class TwitchAuthenticationService {
-  user: User | null = this.storage.getUser();
-  userId = this.user?.id.toString();
-  public userValue = this.user;
+  user: User | null;
+  jwt: JWT | null;
+  userId: string | undefined;
+  public userValue: User | null;
+
   constructor(
     private http: HttpClient,
     private storage: DataStorageService) {
+      this.user = this.storage.getUser();
+      this.jwt = this.storage.getJWT();
+      this.userId = this.user?.id.toString()
+      this.userValue = this.user;
   }
+
   refreshToken() {
     return this.http.post(
       'https://id.twitch.tv/oauth2/token--data-urlencode' +
       '?grant_type=refresh_token' +
-      '&refresh_token=' + this.user?.token +
-      '&client_id=gfe65599d679im8wfulwz8zq9hyjlm' +
-      '&client_secret=v9158ddrte7ad0h8d9g4v9cdapx3sn', null
+      '&refresh_token=' + this.jwt?.access_token +
+      '&client_id=' + environment.twitchClientId +
+      '&client_secret=' + environment.twitchClientSecret, null
     )
   }
 
   logout() {
     return this.http.post(
       'https://id.twitch.tv/oauth2/revoke' +
-      '?client_id=gfe65599d679im8wfulwz8zq9hyjlm' +
-      '&token='+ this.user?.token, null
+      '?client_id=' + environment.twitchClientId +
+      '&token='+ this.jwt?.access_token, null
     );
   }
   getSubscribers() {
     if(this.user) {
       let params = new HttpParams().set('broadcaster_id', this.user.id.toString());
       let headers = new HttpHeaders()
-      .set('Client-Id', 'gfe65599d679im8wfulwz8zq9hyjlm');
+      .set('Client-Id', environment.twitchClientId);
 
       this.http.get(
         'https://api.twitch.tv/helix/subscriptions',
@@ -51,12 +60,12 @@ export class TwitchAuthenticationService {
   }
 
   isUserSubbed(broadcaster_id: string) : any {
-    if (this.user) {
+    if (this.user && this.jwt) {
       let params = new HttpParams()
       .set('user_id', this.user.id.toString()).set('broadcaster_id', broadcaster_id);
       let headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.user.token}`)
-      .set('Client-Id', 'gfe65599d679im8wfulwz8zq9hyjlm');
+      .set('Authorization', `Bearer ${this.jwt.access_token}`)
+      .set('Client-Id', environment.twitchClientId);
       return this.http.get(
         'https://api.twitch.tv/helix/subscriptions/user',
         {
