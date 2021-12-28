@@ -1,6 +1,14 @@
+<div *ngIf="!user?.twitchDisplayName" class="link-twitch">
+  <h1>You need to link your Twitch account to make sure you are subscribed to the creator</h1>
+  <app-twitch-login
+      (callback)="out($event)"
+      scopes="user:read:email+openid+channel:read:subscriptions+user:read:subscriptions"
+      label="Login Twitch 🚀"
+      >
+      </app-twitch-login>
+</div>
 
-
-<div class="send-link-container">
+<div *ngIf="user?.twitchDisplayName" class="send-link-container">
   <mat-card class="send-link-card">
 
     <mat-card-content>

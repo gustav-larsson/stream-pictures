@@ -30,7 +30,7 @@ export class PaypalAuthenticationService {
   signUp() {
     let headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
-    const id = this.storage.getUser()?.id;
+    const id = this.storage.getUser()?.twitchId;
     return this.http.post(environment.paypalApiUrl + '/v2/customer/partner-referrals',
     {
       "tracking_id": id,

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { TwitchLoginSdkService } from 'twitch-login-sdk';
+import { AuthService } from '../google-auth.service';
 import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class TwitchLoginSdkComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private storage: DataStorageService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private auth: AuthService) { }
   ngOnInit () {
     this.route.queryParams.forEach(params => {
       if (params.code) {
@@ -41,8 +43,8 @@ export class TwitchLoginSdkComponent implements OnInit{
           this.http.get(
             'https://api.twitch.tv/helix/users?scope=user:read:email',
             { headers: headers }).pipe(take(1)).subscribe((user: any) => {
-              this.storage.setUser(user.data[0]);
-              location.reload();
+              //this.storage.setUser(user.data[0]);
+              this.auth.updateUserDataTwitchInfo(user.data[0]);
             })
         });
 

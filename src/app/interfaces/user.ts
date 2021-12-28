@@ -9,4 +9,13 @@ export interface User {
   offline_image_url: string,
   view_count: number,
   email: string,
+  /* displayName: string,
+  email: string,
+  photoURL?: string,
+  twitchDisplayName?: string,
+  twitchEmail?: string,
+  twitchId?: string,
+  twitchLogin?: string,
+  twitchURL?: string,
+  uid: string */
 }

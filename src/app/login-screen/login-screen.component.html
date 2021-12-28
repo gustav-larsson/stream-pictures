@@ -1,19 +1,22 @@
-<app-toolbar (toggle)="toggleDrawer($event)" [hideBack]="true" *ngIf="user?.id"></app-toolbar>
-<div class="login-container" *ngIf="!user?.id">
+<!-- <app-toolbar (toggle)="toggleDrawer($event)" [hideBack]="true" *ngIf="user?.id"></app-toolbar> -->
+<app-toolbar (toggle)="toggleDrawer($event)" [hideBack]="true" *ngIf="auth.user$ | async"></app-toolbar>
+<div class="login-container" *ngIf="!(auth.user$ | async)">
   <mat-card class="login-card">
     <mat-card-header style="display: flex; justify-content: center;">
       <mat-card-title class="title-text title-color">Stream Pictures</mat-card-title>
     </mat-card-header>
     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
     <mat-card-actions  style="display: flex; justify-content: center;">
-      <app-twitch-login
+      <!-- <app-twitch-login
       (callback)="out($event)"
       scopes="user:read:email+openid+channel:read:subscriptions+user:read:subscriptions"
       label="Login Twitch 🚀"
       >
-      </app-twitch-login>
-      <button mat-button-primary (click)="onLogin()">twitch login</button>
+      </app-twitch-login> -->
+      <app-google-sign-in>
+      </app-google-sign-in>
     </mat-card-actions>
   </mat-card>
 </div>
-<app-home-screen [toggle]="toggle" *ngIf="user?.id"></app-home-screen>
+<!-- <app-home-screen [toggle]="toggle" *ngIf="user?.id"></app-home-screen> -->
+<app-home-screen [toggle]="toggle" *ngIf="auth.user$ | async as user;"></app-home-screen>

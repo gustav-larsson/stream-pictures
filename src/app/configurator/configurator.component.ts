@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { GoogleUser } from '../interfaces/googleUser';
 import { Merchant } from '../interfaces/merchant';
-import { UserConfig } from '../interfaces/userconfig';
 import { DataStorageService } from '../services/data-storage.service';
 import { DatabaseService } from '../services/database.service';
 import { PaypalAuthenticationService } from '../services/paypal.authentication.service';
@@ -15,14 +14,14 @@ import { TwitchCommunicationService } from '../services/twitch-communcation.serv
   templateUrl: './configurator.component.html',
   styleUrls: ['./configurator.component.scss']
 })
-export class ConfiguratorComponent implements OnInit {
+export class ConfiguratorComponent implements OnInit, OnDestroy {
   public preview: any;
   public backgroundColor: any;
   public textColor: any;
   public timerRunning: boolean = false;
   public merchant: Merchant | null;
   public isMerchant: boolean = false;
-  user: any;
+  user: GoogleUser | null;
   linkGroup = new FormGroup({
     background: new FormControl(''),
     text: new FormControl(''),
@@ -34,26 +33,40 @@ export class ConfiguratorComponent implements OnInit {
     private storage: DataStorageService,
     private databaseService: DatabaseService,
     private twitchCom: TwitchCommunicationService,
-    private paypalService: PaypalAuthenticationService) { }
+    private paypalService: PaypalAuthenticationService,
+    ) { }
 
   ngOnInit(): void {
     this.user = this.storage.getUser();
     this.merchant = this.storage.getMerchant();
-    this.checkIfMerchant();
+    //this.checkIfMerchant();
     //TODO this might not be needed
+
     this.formSub();
-   /*  this.twitchCom.isUserSubbed('23035003').subscribe((val: any) => {
+    this.twitchCom?.isUserSubbed('23035003').subscribe((val: any) => {
       if (parseInt(val.data[0].tier) >= 3000) {
         this.tier3Sub = true;
       }
-    }); */
+    });
+
+    if (window.addEventListener) {
+      window.addEventListener("storage", this._listener, false);
+    }
   }
+  private _listener = () => {
+    this.user = this.storage.getUser();
+  }
+
+  ngOnDestroy(): void {
+      window.removeEventListener('storage', this._listener);
+  }
+
 
   formSub() {
     return this.linkGroup.valueChanges.subscribe(val => {
       this.preview = {
-        display_name: this.user.display_name,
-        profile_image_url: this.user.profile_image_url,
+        display_name: this.user?.twitchDisplayName,
+        profile_image_url: this.user?.twitchURL,
         url: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
         text: 'This is a comment people could add',
         backgroundColor: this.linkGroup.controls.background.value,
@@ -63,15 +76,18 @@ export class ConfiguratorComponent implements OnInit {
     });
   }
   onSave(): void {
-    const config = {
-      user: this.user.login,
-      id: this.user.id,
-      backgroundColor: this.linkGroup.controls.background.value.rgba,
-      color: this.linkGroup.controls.text.value.rgba,
-      time: this.linkGroup.controls.displayTime.value
+    if (this.user) {
+      const config = {
+        user: this.user.twitchLogin,
+        id: this.user.twitchId,
+        backgroundColor: this.linkGroup.controls.background.value.rgba,
+        color: this.linkGroup.controls.text.value.rgba,
+        time: this.linkGroup.controls.displayTime.value
+      }
+      this.databaseService.setConfig(config);
+      this.snackBar.open('Your config has been saved', undefined, { duration: 3000 });
     }
-    this.databaseService.setConfig(config);
-    this.snackBar.open('Your config has been saved', undefined, { duration: 3000 });
+
 
   }
   onPreview(): void {
@@ -81,11 +97,11 @@ export class ConfiguratorComponent implements OnInit {
     }, parseInt(this.linkGroup.controls.displayTime.value + '000'));
   }
   checkIfMerchant() {
-    if (this.merchant?.merchantId === this.user?.id) {
+    if (this.merchant?.merchantId === this.user?.twitchId) {
       this.isMerchant = true;
     } else {
       this.databaseService.getConfig().pipe(take(1)).subscribe((config: any) => {
-        if (config.payload.data().merchantId === this.user?.id) {
+        if (config.payload.data().merchantId === this.user?.twitchId) {
           this.storage.setMerchant(config.payload.data());
           this.isMerchant = true;
         }

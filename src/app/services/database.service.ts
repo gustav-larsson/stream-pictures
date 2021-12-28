@@ -6,11 +6,13 @@ import { DataStorageService } from './data-storage.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { AuthService } from '../google-auth.service';
+import { GoogleUser } from '../interfaces/googleUser';
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  user: User | null;
+  user: any | null;
   constructor(
     private store: AngularFirestore,
     private realTimeDatabase: AngularFireDatabase,
@@ -21,59 +23,50 @@ export class DatabaseService {
     this.store.collection(streamer + '-collection').add(data);
   }
   removeFromCollection(suggestion: Suggestion) {
-    this.store.collection(this.user?.login + '-collection').doc(suggestion.id).delete();
+    this.store.collection(this.user?.twitchLogin + '-collection').doc(suggestion.id).delete();
   }
   addSuggestionToUser(suggestion: Suggestion) {
-    if(this.user){
-      this.store.collection(this.user.login).add(suggestion);
+    if(this.user?.twitchLogin){
+      this.store.collection(this.user.twitchLogin).add(suggestion);
     }
   }
-  getCollection () {
-    return this.store.collection(this.user?.login + '-collection');
+
+  getCollection (user: GoogleUser) {
+    return this.store.collection(user?.twitchLogin + '-collection');
   }
 
   setConfig (data:any) {
-    this.store.collection('config').doc(this.user?.login).update(data);
+    this.store.collection('config').doc(this.user?.twitchLogin).update(data);
   }
 
   getConfig() {
-    return this.store.collection('config').doc(this.user?.login).snapshotChanges();
+    return this.store.collection('config').doc(this.user?.twitchLogin).valueChanges();
   }
 
   getStreamers () {
     return this.store.collection('config').snapshotChanges();
   }
-
   createOrder (data: any) {
       return this.store.collection('orders').add(data);
   }
-
   approveOrder (id: string) {
     return this.store.collection('orders').doc(id).snapshotChanges();
   }
 
   createUser (token: string, user: User) {
-    const userRef = this.realTimeDatabase.object(user.id);
-    userRef.set(user);
-    userRef.set({'token': token});
+    if (user?.id) {
+      const userRef = this.realTimeDatabase.object(user.id);
+      userRef.set(user);
+      userRef.set({'token': token});
+    }
+
     /* const callable = this.firebaseFuctions.httpsCallable('twitch-login');
     const data = callable({token: token}).pipe(take(1)).subscribe(() => {
       console.log('User created');
     }) */
   }
-
-  auth (token: string) {
-   /*  console.log(token);
-
-    this.firebase.signInWithCustomToken(token)
-    .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-      console.log('userLoggedIn', user);
-    })
-    .catch((error) => {
-    console.error('user not logged in', error.code, error.message);
-  }); */
+  getUser (user:any) {
+      return this.store.collection('users').doc(user?.uid).valueChanges();
   }
 
   login () {

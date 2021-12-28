@@ -24,14 +24,15 @@ import { GuideComponent } from './guide/guide.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './helpers/error.interceptor';
-import { PaypalAuthInterceptor } from './helpers/paypal.auth.interceptor';
+//import { PaypalAuthInterceptor } from './helpers/paypal.auth.interceptor';
 import { TabDirective } from './directives/tab.directive';
-import { PayPalModule } from './paypal.module';
-import { PaypalComponent } from './paypal-button/paypal.component';
+//import { PayPalModule } from './paypal.module';
+//import { PaypalComponent } from './paypal-button/paypal.component';
 import { TwitchLoginSdkComponent } from './twitchLoginSdk/twitch-login-sdk.component';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
+import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +47,10 @@ import { LoginPopupComponent } from './login-popup/login-popup.component';
     DatabasePictureComponent,
     GuideComponent,
     TabDirective,
-    PaypalComponent,
+    //PaypalComponent,
     TwitchLoginSdkComponent,
-    LoginPopupComponent
+    LoginPopupComponent,
+    GoogleSignInComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,7 @@ import { LoginPopupComponent } from './login-popup/login-popup.component';
       //redirect: "http://localhost:4200/"
       redirect:  "https://stream-pictures.web.app/" //<***** YOUR CALLBACK REDIRECT 👈
     }),
-    PayPalModule.init({
+    /* PayPalModule.init({
       clientId: environment.clientId, // Using sandbox for testing purposes only
       currency: 'USD',
       integrationDate: '2021-07-01',
@@ -77,7 +79,7 @@ import { LoginPopupComponent } from './login-popup/login-popup.component';
       //commit: true,
       //vault: true,
       //disableFunding: "card"
-    })
+    }) */
   ],
   providers: [
     {
@@ -89,11 +91,11 @@ import { LoginPopupComponent } from './login-popup/login-popup.component';
       useClass: ErrorInterceptor,
       multi: true
     },
-    {
+    /* {
       provide: HTTP_INTERCEPTORS,
       useClass: PaypalAuthInterceptor,
       multi: true
-    }
+    } */
   ],
   bootstrap: [AppComponent]
 })

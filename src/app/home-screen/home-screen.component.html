@@ -6,7 +6,7 @@
 
       <mat-divider class="button-divider"></mat-divider>
 
-      <button mat-button color="accent" [ngClass]="{ 'selected-app' : app === 'list' }" (click)="show('list')"  class="home-screen-buttons">Picture List <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="List">view_list</mat-icon></button>
+      <button mat-button color="accent" *ngIf="pictureViewer" [ngClass]="{ 'selected-app' : app === 'list' }" (click)="show('list')"  class="home-screen-buttons">Picture List <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="List">view_list</mat-icon></button>
 
       <mat-divider class="button-divider"></mat-divider>
 
@@ -18,13 +18,17 @@
 
       <mat-divider class="button-divider"></mat-divider>
 
-      <button *ngIf="user?.login" mat-button color="accent" routerLink="/picture-viewer" [queryParams]="{ user: user?.login }" class="home-screen-buttons">Picture Viewer <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Settings">photo_library</mat-icon></button>
+      <button *ngIf="user" mat-button color="accent" routerLink="/picture-viewer" [queryParams]="{ user: user?.twitchLogin }" class="home-screen-buttons">Picture Viewer <mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Settings">photo_library</mat-icon></button>
 
       <mat-divider class="button-divider"></mat-divider>
 
-      <button *ngIf="user?.login" (click)="logout()" mat-button color="accent" class="home-screen-buttons">Logout<mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Logout">account_circle</mat-icon></button>
+      <button *ngIf="auth.user$ | async as user;" (click)="auth.signOut()" mat-button color="accent" class="home-screen-buttons">Logout<mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Logout">account_circle</mat-icon></button>
 
       <mat-divider class="button-divider"></mat-divider>
+<!--
+      <button (click)="logout()" mat-button color="accent" class="home-screen-buttons">Unlink Twitch<mat-icon class="home-screen-icon"aria-hidden="false" aria-label="Logout"></mat-icon></button>
+
+      <mat-divider class="button-divider"></mat-divider> -->
 
     </div>
   </mat-drawer>

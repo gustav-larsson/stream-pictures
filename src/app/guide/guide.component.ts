@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../interfaces/user';
+import { GoogleUser } from '../interfaces/googleUser';
 import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { DataStorageService } from '../services/data-storage.service';
   styleUrls: ['./guide.component.scss']
 })
 export class GuideComponent implements OnInit {
-  user: User | null
+  user: GoogleUser | null
   constructor(private store: DataStorageService) { }
 
   ngOnInit(): void {

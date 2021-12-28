@@ -10,14 +10,17 @@ import { Suggestion } from '../interfaces/suggestion';
   templateUrl: './picture-viewer.component.html',
   styleUrls: ['./picture-viewer.component.scss']
 })
-export class PictureViewerComponent implements OnChanges{
+export class PictureViewerComponent implements OnChanges {
   @Input()
   public suggestion: Suggestion;
   public youtube: string | undefined;
   public showYoutube: boolean = false;
   @ViewChild('one', { static: false }) d1: ElementRef;
   constructor(private sanitizer: DomSanitizer, private renderer: Renderer2) { }
+  /* ngOnInit(): void {
 
+      //this.renderer.setAttribute(d1, 'color',)
+  } */
   ngOnChanges(event: SimpleChanges) {
     if(event.suggestion) {
       if(this.suggestion.url.includes('youtube')){

@@ -1,12 +1,14 @@
-<mat-toolbar class="toolbar"  color="accent">
+<mat-toolbar class="toolbar"  color="accent" *ngIf="auth.user$ | async as user">
 
   <div class="user-container">
     <button class="toggle-button" mat-icon-button type="button" (click)="toggleDrawer()" mat-button >
       <mat-icon *ngIf="drawer">menu</mat-icon>
       <mat-icon *ngIf="!drawer">arrow_back_ios_new</mat-icon>
     </button>
-    <img  class="profile-img" src="{{user.profile_image_url}}" alt="Cover Photo">
-    <span class="display-name">{{user.display_name}}</span>
+    <img *ngIf="user?.photoURL && !user?.twitchURL" class="profile-img" src="{{user?.photoURL}}" alt="Cover Photo">
+    <img *ngIf="user?.twitchURL" class="profile-img" src="{{user?.twitchURL}}" alt="Cover Photo">
+    <span *ngIf="user?.displayName && !user?.twitchDisplayName" class="display-name">{{user?.displayName}}</span>
+    <span *ngIf="user?.twitchDisplayName" class="display-name">{{user?.twitchDisplayName}}</span>
   </div>
   <div class="title-container">
     <h1 class="title-text">{{title}}</h1>

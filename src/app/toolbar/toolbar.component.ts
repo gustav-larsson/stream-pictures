@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { Observable } from 'rxjs';
+import { AuthService } from '../google-auth.service';
 import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class ToolbarComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
-    private storage: DataStorageService) {
+    private storage: DataStorageService,
+    public auth: AuthService) {
     this.user = this.storage.getUser();
   }
 

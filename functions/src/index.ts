@@ -56,8 +56,8 @@ export const gettoken = functions.https.onRequest(async (req: any, res: any) => 
   try {
     const {data} = await axios.default.post(
         'https://id.twitch.tv/oauth2/token?' +
-        `client_id=${functions.config().twitch.client_id}&` +
-        `client_secret=${functions.config().twitch.client_secret}&` +
+        'client_id=gfe65599d679im8wfulwz8zq9hyjlm&' +
+        'client_secret=v9158ddrte7ad0h8d9g4v9cdapx3sn&' +
         `code=${code}&` +
         'grant_type=authorization_code&' +
         `redirect_uri=${redirectUri}`
@@ -75,12 +75,12 @@ export const gettoken = functions.https.onRequest(async (req: any, res: any) => 
 });
 
 const getUserInfo = async (auth: any) => {
-  const endpoint = 'https://api.twitch.tv/kraken/user';
+  const endpoint = 'https://api.twitch.tv/helix/users?scope=user:read:email';
   try {
     const {data} = await axios.default.get(endpoint, {
       headers: {
-        'Client-ID': functions.config().twitch.client_id,
-        'Authorization': `OAuth ${auth.access_token}`,
+        'Client-ID': 'gfe65599d679im8wfulwz8zq9hyjlm',
+        'Authorization': `Bearer ${auth.access_token}`,
       },
     });
     return data;

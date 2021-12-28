@@ -13,7 +13,7 @@ export class TwitchValidators {
 
   isSubbed() {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.store.getUser()?.id === control.value.id || '56723520' === this.store.getUser()?.id ? of(null) : this.twitch.isUserSubbed(control.value.id)?.pipe(
+      return this.store.getUser()?.twitchId === control.value.id || '56723520' === this.store.getUser()?.twitchId ? of(null) : this.twitch.isUserSubbed(control.value.id)?.pipe(
         map((isSub: any) => (isSub.data[0].tier === '1000' ? null : { notSubbed: true })),
         catchError(() => of({ networkError: true })));
     }

@@ -1,12 +1,20 @@
 import { Inject, Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { AuthService } from '../google-auth.service';
+import { GoogleUser } from '../interfaces/googleUser';
 import { JWT } from '../interfaces/JWT';
 import { User } from '../interfaces/user';
+import { DatabaseService } from './database.service';
 @Injectable({
   providedIn: 'root'
 })
 export class DataStorageService {
-  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) {
+  constructor(
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private afAuth: AngularFireAuth,
+    private store: AngularFirestore) {
   }
   setUser(user: any) {
     this.storage.set('user', JSON.stringify(user));
@@ -19,11 +27,18 @@ export class DataStorageService {
     const data = this.storage.get(name);
     return data;
   }
-  getUser(): User | null{
+  getUser(): GoogleUser | null{
+    /* return this.afAuth.currentUser.then(data  => {
+      const uid = data?.uid;
+      const returnData = this.store.collection('user').doc(uid).snapshotChanges();
+      console.log('returnData', returnData);
+      return returnData;
+    }); */
     const data = this.storage.get('user');
-    if (data) {
-      return JSON.parse(data);
+    if (data?.email) {
+      return data;
     } else {
+      this.storage.set('user', '');
       return null;
     }
   }
