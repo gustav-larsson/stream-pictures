@@ -1,6 +1,6 @@
 
 <div class="card-grid">
-  <mat-card *ngFor="let suggestion of suggestions | async; let i = index" class="picture-card">
+  <mat-card *ngFor="let suggestion of suggestions | async; let i = index" (touchmove)="swipeMove($event)" (touchstart)="swipe($event, 'start', suggestion)" (touchend)="swipe($event, 'end', suggestion)" class="picture-card">
     <mat-card-header>
       <img mat-card-avatar class="profile-img" src="{{suggestion.profile_image_url}}" alt="Cover Photo">
       <mat-card-title class="title">{{suggestion.display_name}}</mat-card-title>
@@ -11,8 +11,8 @@
       <img class="suggestion-img" mat-card-image src="{{suggestion.url}}" alt="Random Picture">
     </mat-card-content>
     <mat-card-actions>
-      <button class="action-button" color="primary" (click)="onAccept(suggestion)" mat-button>ACCEPT</button>
       <button class="action-button" color="warn"(click)="onDelete(suggestion)" mat-button>DELETE</button>
+      <button class="action-button" color="primary" (click)="onAccept(suggestion)" mat-button>ACCEPT</button>
     </mat-card-actions>
   </mat-card>
 </div>

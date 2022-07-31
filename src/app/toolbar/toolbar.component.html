@@ -5,7 +5,7 @@
       <mat-icon *ngIf="drawer">menu</mat-icon>
       <mat-icon *ngIf="!drawer">arrow_back_ios_new</mat-icon>
     </button>
-    <img *ngIf="user?.photoURL && !user?.twitchURL" class="profile-img" src="{{user?.photoURL}}" alt="Cover Photo">
+    <img *ngIf="user && user.photoURL && !user.twitchURL" class="profile-img" src="{{user?.photoURL}}" alt="Cover Photo">
     <img *ngIf="user?.twitchURL" class="profile-img" src="{{user?.twitchURL}}" alt="Cover Photo">
     <span *ngIf="user?.displayName && !user?.twitchDisplayName" class="display-name">{{user?.displayName}}</span>
     <span *ngIf="user?.twitchDisplayName" class="display-name">{{user?.twitchDisplayName}}</span>

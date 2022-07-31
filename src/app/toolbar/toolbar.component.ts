@@ -1,7 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { Observable } from 'rxjs';
 import { AuthService } from '../google-auth.service';
 import { DataStorageService } from '../services/data-storage.service';
 
@@ -10,7 +8,7 @@ import { DataStorageService } from '../services/data-storage.service';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
   @Input()
   public hideBack: boolean = false;
   @Input()
@@ -37,9 +35,6 @@ export class ToolbarComponent implements OnInit {
     this.document.body.classList.contains('my-dark-theme') ?
     this.renderer.removeClass(document.body, 'my-dark-theme') :
     this.renderer.addClass(document.body, 'my-dark-theme');
-  }
-  ngOnInit(): void {
-
   }
 
   toggleDrawer() {
